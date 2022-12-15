@@ -1,6 +1,6 @@
 {{ include('main-menu.php', {title: 'Facture', pageHeader: 'Facture modification'})}}
 <main>
-    <form action="../update" method="POST" class="form-box">
+    <form action="?url=facture/update" method="POST" class="form-box">
         <label for="">Date de facturation:
             <input type="date" name="date" value="{{ facture.date }}">
         </label>

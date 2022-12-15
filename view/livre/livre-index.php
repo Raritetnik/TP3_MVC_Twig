@@ -3,7 +3,7 @@
     <main>
         <h1>Liste des livres en vente</h1>
         {% if session.lvlAccess >= 2 %}
-            <a href="livre/create" class="bouton">+ Ajouter un livre</a>
+            <a href="?url=livre/create" class="bouton">+ Ajouter un livre</a>
         {% endif %}
         <table>
             <thead>
@@ -23,10 +23,10 @@
                         <td>{{ livre.nombrePages }}</td>
                         <td>{{ livre.prix }}</td>
                         {% if session.lvlAccess >= 1 %}
-                            <td class='modify'><a href='livre/modifier/{{ livre.id }}'>Modifier</a></td>
+                            <td class='modify'><a href='?url=livre/modifier/{{ livre.id }}'>Modifier</a></td>
                         {% endif %}
                         {% if session.lvlAccess >= 2 %}
-                            <td class='delete'><a href='livre/delete/{{ livre.id }}'>Supprimer</a></td>
+                            <td class='delete'><a href='?url=livre/delete/{{ livre.id }}'>Supprimer</a></td>
                         {% endif %}
                     </tr>
                     {% endfor %}

@@ -30,7 +30,6 @@ class ModelFacture extends Crud{
             .$this->tableAssoc_3['Nom'].".id = ".$this->table.".".$this->tableAssoc_3['FK_nom']
             ." ORDER BY $this->table.$this->primaryKey $order";
 
-        //echo("<br>".$sql."<br>");
         $stmt = $this->query($sql);
         return $stmt->fetchAll();
     }

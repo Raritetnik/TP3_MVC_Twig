@@ -1,6 +1,6 @@
 {{ include('main-menu.php', {title: 'Commande', pageHeader: 'Commande modification'})}}
 <main>
-    <form action="../update" method="POST" class="form-box">
+    <form action="?url=commande/update" method="POST" class="form-box">
         <label for="">Prix:
             <input type="text" name="prixTotal" value='{{ commande.prixTotal }}' required>
         </label>

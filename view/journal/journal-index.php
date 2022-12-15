@@ -1,6 +1,6 @@
 {{ include('main-menu.php', {title: 'Journal de bord', pageHeader: 'Historique'})}}
 <main class="journal">
-<a class="btn-imprimer" href="{{path}}journal/printPDF">Imprimer</a>
+<a class="btn-imprimer" href="{{path}}?url=journal/printPDF">Imprimer</a>
     <table>
         <thead>
             <tr>

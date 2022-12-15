@@ -10,8 +10,8 @@ class ControllerJournal{
     }
 
     public function index(){
-        if ($_SESSION['lvlAccess'] >= Crud::$AdminLVL) {
-            $select = $this->_journal->select();
+        if (CheckSession::sessionAuth() && $_SESSION['lvlAccess'] >= Crud::$AdminLVL) {
+            $select = $this->_journal->selectWith();
             twig::render("journal/journal-index.php", ['journal' => $select]);
         } else {
             RequirePage::redirectPage('');
@@ -24,8 +24,8 @@ class ControllerJournal{
 
     // http://www.fpdf.org/en/doc/index.php
     public function printPDF() {
-        if ($_SESSION['lvlAccess'] >= Crud::$AdminLVL) {
-            $data = $this->_journal->select();
+        if (CheckSession::sessionAuth() && $_SESSION['lvlAccess'] >= Crud::$AdminLVL) {
+            $data = $this->_journal->selectWith();
             $pdf = new FPDF();
             $pdf->AddPage();
             $pdf->SetTitle('Journal_de_Bord.pdf');

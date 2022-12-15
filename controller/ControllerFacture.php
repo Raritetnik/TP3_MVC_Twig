@@ -31,7 +31,7 @@ class ControllerFacture{
      * Creation d'une donnée de facture
      */
     public function create(){
-        if ($_SESSION['lvlAccess'] >= Crud::$AdminLVL) {
+        if (CheckSession::sessionAuth() && $_SESSION['lvlAccess'] >= Crud::$AdminLVL) {
             $livraisons = $this->_livraison->select();
             $paiements = $this->_paiement->select();
             $membres = $this->_membre->select();
@@ -44,7 +44,7 @@ class ControllerFacture{
         }
     }
     public function save() {
-        if ($_SESSION['lvlAccess'] >= Crud::$AdminLVL) {
+        if (CheckSession::sessionAuth() && $_SESSION['lvlAccess'] >= Crud::$AdminLVL) {
             $data = $_POST;
             $this->_facture->insert($data);
             SystemJournal::createNote("Création de Facture sur date: \"".$data['date']."\"  par administrateur");
@@ -55,7 +55,7 @@ class ControllerFacture{
      * Modifier la donnée du facture
      */
     public function modifier($id){
-        if ($_SESSION['lvlAccess'] >= Crud::$ModeratorLVL) {
+        if (CheckSession::sessionAuth() && $_SESSION['lvlAccess'] >= Crud::$ModeratorLVL) {
             if (!isset($id)) {
                 RequirePage::redirectPage("facture");
             }
@@ -76,7 +76,7 @@ class ControllerFacture{
     }
 
     public function update() {
-        if ($_SESSION['lvlAccess'] >= Crud::$ModeratorLVL) {
+        if (CheckSession::sessionAuth() && $_SESSION['lvlAccess'] >= Crud::$ModeratorLVL) {
             $data = $_POST;
             $this->_facture->update($data);
             SystemJournal::createNote("Modification de Facture sur \"".$data['Nom']."\" [ID:".$data['id']."] par administrateur");
@@ -88,7 +88,7 @@ class ControllerFacture{
      * Supprimer la donnée de facture
      */
     function delete($id) {
-        if ($_SESSION['lvlAccess'] >= Crud::$AdminLVL) {
+        if (CheckSession::sessionAuth() && $_SESSION['lvlAccess'] >= Crud::$AdminLVL) {
             $facture = $this->_facture->selectId($id);
             $this->_facture->delete($id);
             SystemJournal::createNote("Suppression de Facture sur \"".$facture['date']."\" [ID:".$facture['id']."] par administrateur");

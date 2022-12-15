@@ -28,7 +28,7 @@ class ControllerLivre{
      * Creation d'une donnée de livre
      */
     public function create(){
-        if ($_SESSION['lvlAccess'] >= Crud::$AdminLVL) {
+        if (CheckSession::sessionAuth() && $_SESSION['lvlAccess'] >= Crud::$AdminLVL) {
             $editeurs = $this->_editeur->select();
             $categories = $this->_categorie->select();
             twig::render("livre/livre-create.php", [
@@ -40,7 +40,7 @@ class ControllerLivre{
         }
     }
     public function save() {
-        if ($_SESSION['lvlAccess'] >= 2) {
+        if (CheckSession::sessionAuth() && $_SESSION['lvlAccess'] >= 2) {
             $data = $_POST;
             $this->_livre->insert($data);
             SystemJournal::createNote("Création de Livre: \"".$data['Titre']."\"  par administrateur");
@@ -51,7 +51,7 @@ class ControllerLivre{
      * Modifier la donnée du livre
      */
     public function modifier($id){
-        if ($_SESSION['lvlAccess'] >= Crud::$ModeratorLVL) {
+        if (CheckSession::sessionAuth() && $_SESSION['lvlAccess'] >= Crud::$ModeratorLVL) {
             if (!isset($id)) {
                 RequirePage::redirectPage("livre");
             }
@@ -68,9 +68,8 @@ class ControllerLivre{
         }
     }
     public function update() {
-        if ($_SESSION['lvlAccess'] >= Crud::$ModeratorLVL) {
+        if (CheckSession::sessionAuth() && $_SESSION['lvlAccess'] >= Crud::$ModeratorLVL) {
             $data = $_POST;
-            print_r($data);
             $this->_livre->update($data);
             SystemJournal::createNote("Modification de Livre: \"".$data['Titre']."\" [ID:".$data['id']."] par administrateur");
         }
@@ -81,7 +80,7 @@ class ControllerLivre{
      * Supprimer la donnée de livre
      */
     function delete($id) {
-        if ($_SESSION['lvlAccess'] >= Crud::$AdminLVL) {
+        if (CheckSession::sessionAuth() && $_SESSION['lvlAccess'] >= Crud::$AdminLVL) {
             $livre = $this->_livre->selectId($id);
             $this->_livre->delete($id);
             SystemJournal::createNote("Suppression de livre \"".$livre['Titre']."\" [ID:".$id."] par administrateur");

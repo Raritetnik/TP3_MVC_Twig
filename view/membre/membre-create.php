@@ -1,6 +1,6 @@
-{{ include('../main-menu.php', {title: 'Membre', pageHeader: 'Membre creation'})}}
+{{ include('main-menu.php', {title: 'Membre', pageHeader: 'Membre creation'})}}
 <main>
-    <form action="save" method="POST" class="form-box">
+    <form action="?url=membre/save" method="POST" class="form-box">
         <label for="">Nom:
             <input type="text" name="Nom" required>
         </label>

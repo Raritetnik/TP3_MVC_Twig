@@ -22,7 +22,7 @@ class ControllerConnexion
     }
 
     public function create(){
-        if(!CheckSession::sessionAuth()){
+        if(CheckSession::sessionAuth() && $_SESSION['lvlAccess'] >= 4){
             twig::render("connexion/connexion-create.php");
         }else{
             requirePage::redirectPage('home/error');
@@ -30,28 +30,32 @@ class ControllerConnexion
     }
 
     public function store(){
-        // Creation $$key = $variable
-        extract($_POST);
-        // Validation des données recu
-        $validation = new Validation;
-        $validation->name('username')->value($username)->pattern('email')->required()->max(50);
-        $validation->name('password')->value($password)->max(20)->min(4);
-        $validation->name('lvlAccess')->value($lvlAccess)->pattern('int')->required();
+        if(CheckSession::sessionAuth() && $_SESSION['lvlAccess'] >= 4){
+            // Creation $$key = $variable
+            extract($_POST);
+            // Validation des données recu
+            $validation = new Validation;
+            $validation->name('username')->value($username)->pattern('email')->required()->max(50);
+            $validation->name('password')->value($password)->max(20)->min(4);
+            $validation->name('lvlAccess')->value($lvlAccess)->pattern('int')->required();
 
-        // Si validation passe
-        if($validation->isSuccess()){
-            $options = [
-                'cost' => 10,
-            ];
-            // Cryptage de mot de passe
-            $_POST['password']= password_hash($_POST['password'], PASSWORD_BCRYPT, $options);
-            $userInsert = $this->_compte->insert($_POST);
-            SystemJournal::createNote("Création de nouveau utilisateur: ".$_POST['username']);
-            requirePage::redirectPage('connexion/login');
-        // Si non
+            // Si validation passe
+            if($validation->isSuccess()){
+                $options = [
+                    'cost' => 10,
+                ];
+                // Cryptage de mot de passe
+                $_POST['password']= password_hash($_POST['password'], PASSWORD_BCRYPT, $options);
+                $userInsert = $this->_compte->insert($_POST);
+                SystemJournal::createNote("Création de nouveau utilisateur: ".$_POST['username']);
+                requirePage::redirectPage('connexion/login');
+            // Si non
+            }else{
+                $errors = $validation->displayErrors();
+                twig::render('connexion/connexion-create.php', ['errors' => $errors,'lvlAccess' => $lvlAccess, 'user' => $_POST]);
+            }
         }else{
-            $errors = $validation->displayErrors();
-            twig::render('connexion/connexion-create.php', ['errors' => $errors,'lvlAccess' => $lvlAccess, 'user' => $_POST]);
+            requirePage::redirectPage('home/error');
         }
     }
 
@@ -65,7 +69,6 @@ class ControllerConnexion
             // Check si utilisateur existe
             $checkAdmin = $this->_compte->checkAdmins($_POST);
             twig::render('connexion/connexion-index.php', ['errors' => $checkAdmin, 'user' => $_POST]);
-
         }else{
             $errors = $validation->displayErrors();
             twig::render('connexion/connexion-index.php', ['errors' => $errors, 'user' => $_POST]);

@@ -5,8 +5,8 @@ class Crud extends PDO{
     public static $ModeratorLVL = 1;
 
     public function __construct() {
-        parent::__construct("mysql:host=localhost;dbname=librairie; port=3306; charset=utf8",
-        "root", "");
+        parent::__construct("mysql:host=localhost;dbname=e2196106; port=3306; charset=utf8",
+	"e2196106", "oSj2iBL4A5MFSp0OmlIh");
     }
 
     public function select($order='ASC'){
@@ -36,7 +36,6 @@ class Crud extends PDO{
         $valeurChamp = ":".implode(", :", array_keys($data));
 
         $sql = "INSERT INTO $this->table ($nomChamp) VALUES ($valeurChamp)";
-        echo("<br>".$sql."</br>");
         $stmt = $this->prepare($sql);
         foreach($data as $key=>$value){
             $stmt->bindValue(":$key", $value);

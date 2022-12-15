@@ -52,7 +52,6 @@ class ModelCommande extends Crud{
         $stmt->bindValue(":".$this->tableAssoc_1['FK_nom'], $id[0]);
         $stmt->bindValue(":".$this->tableAssoc_2['FK_nom'], $id[1]);
         $stmt->execute();
-        echo("<br>".$sql."</br>");
         $count = $stmt->rowCount();
         return ($count == 1) ? $stmt->fetch(): null;
     }
@@ -64,7 +63,6 @@ class ModelCommande extends Crud{
         }
         $champRequete = rtrim($champRequete, ", ");
         $sql = "UPDATE $this->table SET $champRequete WHERE Livre_id = :Livre_id AND Facture_id = :Facture_id";
-        echo($sql);
         $stmt = $this->prepare($sql);
 
         foreach($data as $key => $value) {

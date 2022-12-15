@@ -14,6 +14,13 @@ input, select {
   width: 150px;
 }
 
+.error-petit {
+  color: tomato;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 14px;
+}
+
 .error{
   color: tomato;
   margin: 0 auto;

@@ -1,8 +1,8 @@
 {{ include('main-menu.php', {title: 'Connexion', pageHeader: 'Connexion utilisateur'})}}
 <main>
-        <span class="error">{{ errors|raw }}</span>
+        <span class="error-petit">{{ errors|raw }}</span>
 
-    <form action="authorisation" method="POST" class="form-box">
+    <form action="?url=connexion/authorisation" method="POST" class="form-box">
         <label for="">Nom d'utilisateur:
             <input type="email" name="username" required>
         </label>

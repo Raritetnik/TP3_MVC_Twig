@@ -3,7 +3,7 @@
     <main>
         <h1>Commande</h1>
         {% if session.lvlAccess >= 2 %}
-            <a href="commande/create" class="bouton">+ Ajouter une commande</a>
+            <a href="?url=commande/create" class="bouton">+ Ajouter une commande</a>
         {% endif %}
         <table>
             <thead>
@@ -25,10 +25,10 @@
                         <td>{{ commande.Nom }}</td>
                         <td>{{ commande.date }}</td>
                         {% if session.lvlAccess >= 1 %}
-                            <td class='modify'><a href='commande/modifier/{{ commande.Livre_id }}_{{ commande.Facture_id }}'>Modifier</a></td>
+                            <td class='modify'><a href='?url=commande/modifier/{{ commande.Livre_id }}_{{ commande.Facture_id }}'>Modifier</a></td>
                         {% endif %}
                         {% if session.lvlAccess >= 2 %}
-                            <td class='delete'><a href='commande/delete{{ commande.Livre_id }}_{{ commande.Facture_id }}'>Supprimer</a></td>
+                            <td class='delete'><a href='?url=commande/delete{{ commande.Livre_id }}_{{ commande.Facture_id }}'>Supprimer</a></td>
                         {% endif %}
                     </tr>
                     {% endfor %}

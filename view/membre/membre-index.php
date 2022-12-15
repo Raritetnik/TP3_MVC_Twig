@@ -2,7 +2,7 @@
 <main>
     <h1>Membre</h1>
     {% if session.lvlAccess >= 2 %}
-        <a href="membre/create" class="bouton">+ Ajouter un membre</a>
+        <a href="?url=membre/create" class="bouton">+ Ajouter un membre</a>
     {% endif %}
     <table>
         <thead>
@@ -22,10 +22,10 @@
                     <td>{{ membre.phone }}</td>
                     <td>{{ membre.courriel }}</td>
                     {% if session.lvlAccess >= 1 %}
-                        <td class='modify'><a href='membre/modifier/{{membre.id}}'>Modifier</a></td>
+                        <td class='modify'><a href='?url=membre/modifier/{{membre.id}}'>Modifier</a></td>
                     {% endif %}
                     {% if session.lvlAccess >= 2 %}
-                        <td class='delete'><a href='membre/delete'>Supprimer</a></td>
+                        <td class='delete'><a href='?url=membre/delete'>Supprimer</a></td>
                     {% endif %}
                 </tr>
                 {% endfor %}

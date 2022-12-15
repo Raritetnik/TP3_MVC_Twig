@@ -3,7 +3,7 @@
     <main>
         <h1>Factures</h1>
         {% if session.lvlAccess >= 2 %}
-            <a href="facture/create" class="bouton">+ Ajouter une facture</a>
+            <a href="?url=facture/create" class="bouton">+ Ajouter une facture</a>
         {% endif %}
         <table>
             <thead>
@@ -23,10 +23,10 @@
                         <td>{{ facture.modePaiement }}</td>
                         <td>{{ facture.modeLivraison }}</td>
                         {% if session.lvlAccess >= 1 %}
-                            <td class='modify'><a href='facture/modifier/{{ facture.id }}'>Modifier</a></td>
+                            <td class='modify'><a href='?url=facture/modifier/{{ facture.id }}'>Modifier</a></td>
                         {% endif %}
                         {% if session.lvlAccess >= 2 %}
-                            <td class='delete'><a href='facture/delete/{{ facture.id }}'>Supprimer</a></td>
+                            <td class='delete'><a href='?url=facture/delete/{{ facture.id }}'>Supprimer</a></td>
                         {% endif %}
                     </tr>
                     {% endfor %}

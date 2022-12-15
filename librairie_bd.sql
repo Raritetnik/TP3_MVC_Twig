@@ -188,21 +188,41 @@ VALUES (90.96, 4, 6, 5);
 
 --- /************************************************************************************/
 
-CREATE TABLE `admins` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
+
+CREATE TABLE IF NOT EXISTS `Admins` (
+  `id` INT(11) NOT NULL,
   `username` VARCHAR(45) NOT NULL,
-  `password` VARCHAR(45) NOT NULL UNIQUE,
-  PRIMARY KEY (`id`))
+  `password` VARCHAR(255) NOT NULL,
+  `lvlAccess` INT(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `username_UNIQUE` (`username` ASC))
+DEFAULT CHARACTER SET = utf8;
+
+CREATE OR REPLACE TABLE `Journal` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `action` TEXT NULL DEFAULT NULL,
+  `date` DATETIME NOT NULL,
+  `adresseIP` VARCHAR(20) NOT NULL,
+  `Admins_id` INT(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_journal_Admins1_idx` (`Admins_id` ASC),
+  CONSTRAINT `fk_journal_Admins1`
+    FOREIGN KEY (`Admins_id`)
+    REFERENCES `Admins` (`id`))
 DEFAULT CHARACTER SET = utf8;
 
 
-INSERT INTO `admins` (`username`,`password`,`lvlAccess`) 
-VALUES ('admingmail.com', '$2y$10$.gV9YHKgjaFR7kGtB1l6meHJhDq2iiL.FLSL8y8qfpaAa5xrpuy/G' , 2);
+INSERT INTO `Admins` (`username`,`password`,`lvlAccess`) 
+VALUES ('admin@gmail.com', '$2y$10$.gV9YHKgjaFR7kGtB1l6meHJhDq2iiL.FLSL8y8qfpaAa5xrpuy/G' , 2);
 
 
-INSERT INTO `admins` (`username`,`password`,`lvlAccess`) 
-VALUES ('moderatorgmail.com', '$2y$10$wFCFUue54sPcAq1xvZKQquswh4hgbfC4zHLQUTOKkZGMFOIKUN1l6' , 1);
+INSERT INTO `Admins` (`username`,`password`,`lvlAccess`) 
+VALUES ('moderator@gmail.com', '$2y$10$wFCFUue54sPcAq1xvZKQquswh4hgbfC4zHLQUTOKkZGMFOIKUN1l6' , 1);
 
 
-INSERT INTO `admins` (`username`,`password`,`lvlAccess`) 
-VALUES ('utilisateurgmail.com', '$2y$10$HVLeWnP1oyArk1WZcFXkS.MXQci1hYaXiwS.b326mmXhjU5ugA9VS' , 0);
+INSERT INTO `Admins` (`username`,`password`,`lvlAccess`) 
+VALUES ('utilisateur@gmail.com', '$2y$10$HVLeWnP1oyArk1WZcFXkS.MXQci1hYaXiwS.b326mmXhjU5ugA9VS' , 0);
+
+
+INSERT INTO `Admins` (`username`,`password`,`lvlAccess`) 
+VALUES ('directeur@gmail.com', '$2y$10$wFCFUue54sPcAq1xvZKQquswh4hgbfC4zHLQUTOKkZGMFOIKUN1l6' , 4);

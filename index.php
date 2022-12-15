@@ -2,7 +2,7 @@
 session_start();
 require_once __DIR__.'/library/RequirePage.php';
 require_once __DIR__.'/vendor/autoload.php';
-require_once __DIR__.'/library/twig.php';
+require_once __DIR__.'/library/Twig.php';
 require_once __DIR__.'/library/Validation.php';
 require_once __DIR__.'/library/CheckSession.php';
 require_once __DIR__.'/library/SystemJournal.php';
@@ -18,7 +18,7 @@ $path = '.';
 if(isset($url[1])) {
     $path = '..';
 }
-if($url == '/'){
+if($url == '/' || $url[0] == ''){
     require_once 'controller/Controller-Home.php';
     $controller = new ControllerHome;
     echo $controller->index();

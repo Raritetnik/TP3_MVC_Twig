@@ -1,6 +1,6 @@
 {{ include('main-menu.php', {title: 'Membre', pageHeader: 'Membre modification'})}}
 <main>
-    <form action="../update" method="POST" class="form-box">
+    <form action="?url=membre/update" method="POST" class="form-box">
         <label for="">Nom:
             <input type="text" name="Nom" value='{{ membre.Nom }}' required>
         </label>

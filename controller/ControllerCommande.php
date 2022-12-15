@@ -28,7 +28,7 @@ class ControllerCommande{
      * Creation d'une donnée de commande
      */
     public function create(){
-        if ($_SESSION['lvlAccess'] >= Crud::$AdminLVL) {
+        if (CheckSession::sessionAuth() && $_SESSION['lvlAccess'] >= Crud::$AdminLVL) {
             $livres = $this->_livre->select();
             $factures = $this->_facture->selectWith();
             twig::render("commande/commande-create.php", [
@@ -40,7 +40,7 @@ class ControllerCommande{
         }
     }
     public function save() {
-        if ($_SESSION['lvlAccess'] >= Crud::$AdminLVL) {
+        if (CheckSession::sessionAuth() && $_SESSION['lvlAccess'] >= Crud::$AdminLVL) {
             $data = $_POST;
             $this->_commande->insert($data);
             SystemJournal::createNote("Création de Commande sur Livre: [ID:".$data['Livre_id']."] Facture: [ID:".$data['Facture_id']."] par administrateur");
@@ -51,7 +51,7 @@ class ControllerCommande{
      * Modifier la donnée de commande
      */
     public function modifier($id){
-        if ($_SESSION['lvlAccess'] >= Crud::$ModeratorLVL) {
+        if (CheckSession::sessionAuth() && $_SESSION['lvlAccess'] >= Crud::$ModeratorLVL) {
             if (!isset($id)) {
                 RequirePage::redirectPage("commande");
             }
@@ -69,7 +69,7 @@ class ControllerCommande{
     }
 
     public function update() {
-        if ($_SESSION['lvlAccess'] >= Crud::$ModeratorLVL) {
+        if (CheckSession::sessionAuth() && $_SESSION['lvlAccess'] >= Crud::$ModeratorLVL) {
             $data = $_POST;
             $this->_commande->update($data);
             SystemJournal::createNote("Modification de Commande sur Livre: [ID:".$data['Livre_id']."] Facture: [ID:".$data['Facture_id']."] par administrateur");
@@ -81,7 +81,7 @@ class ControllerCommande{
      * Supprimer la donnée de commande
      */
     function delete($id) {
-        if ($_SESSION['lvlAccess'] >= Crud::$AdminLVL) {
+        if (CheckSession::sessionAuth() && $_SESSION['lvlAccess'] >= Crud::$AdminLVL) {
             $commande = $this->_commande->selectId($id);
             $this->_commande->delete($id);
             SystemJournal::createNote("Suppression de Commande sur Livre: [ID:".$commande['Livre_id']."] Facture: [ID:".$commande['Facture_id']."] par administrateur");

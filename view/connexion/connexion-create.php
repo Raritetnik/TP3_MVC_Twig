@@ -1,8 +1,8 @@
 {{ include('main-menu.php', {title: 'Connexion', pageHeader: 'Connexion creation'})}}
 <main>
-        <span class="error">{{ errors|raw }}</span>
+        <span class="error-petit">{{ errors|raw }}</span>
 
-    <form action="store" method="POST" class="form-box">
+    <form action="?url=connexion/store" method="POST" class="form-box">
         <label for="">Nom d'utilisateur:
             <input type="text" name="username" required>
         </label>

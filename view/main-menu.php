@@ -1,4 +1,3 @@
-<?php $nav = "http://localhost:8080/TP2_MVC_Twig/";?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,18 +11,21 @@
 <header class="menu-principale">
     <a href="{{path}}"><h1>Admin Panel</h1></a>
     {% if session.lvlAccess >= 2 %}
-        <a href="{{path}}journal">Journal de bord</a>
+        <a href="{{path}}?url=journal">Journal de bord</a>
     {% endif %}
     <nav>
-            <a href="{{path}}membre">Membre</a>
-            <a href="{{path}}facture">Facture</a>
-            <a href="{{path}}livre">Livre</a>
-            <a href="{{path}}commande">Commande</a>
+            <a href="{{path}}?url=membre">Membre</a>
+            <a href="{{path}}?url=facture">Facture</a>
+            <a href="{{path}}?url=livre">Livre</a>
+            <a href="{{path}}?url=commande">Commande</a>
         {% if guest %}
-            <a href="{{path}}connexion/login">Login</a>
-            <a href="{{path}}connexion/create">Création</a>
+            <a href="{{path}}?url=connexion/login">Login</a>
         {% else %}
-            <a href="{{path}}connexion/logout">Logout</a>
+            {% if session.lvlAccess >= 3 %}
+                <a href="{{path}}?url=connexion/create">Création</a>
+            {% endif %}
+            <a href="{{path}}?url=connexion/logout">Logout</a>
+
         {% endif %}
     </nav>
 </header>

@@ -1,7 +1,7 @@
 <?php
 
 class ModelConnexion extends Crud{
-    protected $table = 'admins';
+    protected $table = 'Admins';
 
     protected $primaryKey = 'id';
 

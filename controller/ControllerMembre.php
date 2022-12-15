@@ -21,7 +21,7 @@ class ControllerMembre{
      * Creation d'une donnée de membre
      */
     public function create(){
-        if ($_SESSION['lvlAccess'] >= Crud::$AdminLVL) {
+        if (CheckSession::sessionAuth() && $_SESSION['lvlAccess'] >= Crud::$AdminLVL) {
             $membres = $this->_membre->select();
             twig::render("membre/membre-create.php", ['membres' => $membres]);
         } else {
@@ -29,7 +29,7 @@ class ControllerMembre{
         }
     }
     public function save() {
-        if ($_SESSION['lvlAccess'] >= Crud::$AdminLVL) {
+        if (CheckSession::sessionAuth() && $_SESSION['lvlAccess'] >= Crud::$AdminLVL) {
             $data = $_POST;
             $this->_membre->insert($data);
             SystemJournal::createNote("Création de Membre: \"".$data['Nom']."\"  par administrateur");
@@ -40,7 +40,7 @@ class ControllerMembre{
      * Modifier la donnée du membre
      */
     public function modifier($id){
-        if ($_SESSION['lvlAccess'] >= Crud::$ModeratorLVL) {
+        if (CheckSession::sessionAuth() && $_SESSION['lvlAccess'] >= Crud::$ModeratorLVL) {
             if (!isset($id)) {
                 RequirePage::redirectPage("membre");
             }
@@ -53,7 +53,7 @@ class ControllerMembre{
     }
 
     public function update() {
-        if ($_SESSION['lvlAccess'] >= Crud::$ModeratorLVL) {
+        if (CheckSession::sessionAuth() && $_SESSION['lvlAccess'] >= Crud::$ModeratorLVL) {
             $data = $_POST;
             $this->_membre->update($data);
             SystemJournal::createNote("Modification de Membre: \"".$data['Nom']."\" [ID:".$data['id']."] par administrateur");
@@ -65,7 +65,7 @@ class ControllerMembre{
      * Supprimer la donnée de membre
      */
     function delete() {
-        if($_SESSION['lvlAccess'] >= Crud::$AdminLVL) {
+        if(CheckSession::sessionAuth() && $_SESSION['lvlAccess'] >= Crud::$AdminLVL) {
             $id = $_GET['id'];
             $membre = $this->_membre->selectId($id);
             $this->_membre->delete($id);
