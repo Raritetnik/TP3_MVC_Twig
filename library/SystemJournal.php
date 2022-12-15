@@ -11,6 +11,9 @@ class SystemJournal {
         date_default_timezone_set('Canada/Eastern');
     }
 
+    /**
+     * Enregistrement d'historique des actions dans le journal de bord
+     */
     public static function createNote($action) {
         $data['Admins_id'] = $_SESSION['admin_id'];
         $data['action'] = $action;

@@ -23,6 +23,10 @@ class ControllerJournal{
     }
 
     // http://www.fpdf.org/en/doc/index.php
+    /**
+     * Création de document PDF ligne par ligne
+     * @return void
+     */
     public function printPDF() {
         if (CheckSession::sessionAuth() && $_SESSION['lvlAccess'] >= Crud::$AdminLVL) {
             $data = $this->_journal->selectWith();

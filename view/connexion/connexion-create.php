@@ -11,9 +11,9 @@
         </label>
         <label for="">Niveau d'access:
             <select name="lvlAccess">
-                <option value="0">User</option>
-                <option value="1">Moderator</option>
-                <option value="2">Admin</option>
+                <option value="0">Utilisateur</option>
+                <option value="1">Moderateur</option>
+                <option value="2">Administrateur</option>
             </select>
         </label>
         <input type="submit" value="Creer">
